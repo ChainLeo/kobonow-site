@@ -80,6 +80,11 @@ p{margin:0}
 .m.b{align-self:flex-start;background:var(--surface-bubble);color:var(--ink);border-bottom-left-radius:5px}
 .m.day{align-self:center;background:none;font:400 10.5px/1 var(--font-mono);color:var(--ink-mute);padding:8px 0 4px;letter-spacing:.5px}
 .gen .m{display:block}
+.opts{align-self:flex-start;display:none;gap:6px;flex-shrink:0;flex-wrap:nowrap;max-width:100%}
+.opts.show{display:flex;animation:pop .32s ease-out both}
+.opt{white-space:nowrap;font:500 14px/1 var(--font-body);padding:11px 12px;border-radius:14px;border:1.5px solid var(--green-300);background:var(--canvas);color:var(--green-700);transition:background .3s,color .3s,border-color .3s}
+.opts.picked .opt.sel{background:var(--green-700);border-color:var(--green-700);color:#fff}
+.opts.picked .opt:not(.sel){opacity:.45}
 .gen .ava{background:var(--rule-soft)}
 .tag{align-self:center;margin:0 0 22px;font:400 10.5px/1 var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--ink-mute);border:1px solid var(--rule);border-radius:4px;padding:5px 8px}
 .typing{align-self:flex-start;background:var(--surface-bubble);border-radius:18px;border-bottom-left-radius:5px;padding:11px 13px;display:none;gap:4px;flex-shrink:0}
@@ -91,7 +96,33 @@ p{margin:0}
 
 .intro{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding-bottom:46px}
 .intro svg.brain{width:190px;height:auto}
-.intro.hi svg.brain{width:120px}
+.intro.hi{flex:0 0 auto;justify-content:flex-start;padding:26px 0 6px;gap:10px}
+.intro.hi svg.brain{width:92px}
+.intro.hi .hit{font-size:28px}
+.hthread{padding-top:8px}
+.opt{cursor:pointer}
+.opts.wait .opt{animation:nudge 1.8s ease-in-out infinite}.opts.wait .opt+.opt{animation-delay:.25s}
+.opts.wait .opt:hover{background:var(--mint-50)}
+@keyframes nudge{0%,100%{box-shadow:0 0 0 0 rgba(0,168,84,0)}50%{box-shadow:0 0 0 4px rgba(0,168,84,.15)}}
+.ex{display:contents}
+.intro.hi svg.brain,.intro.hi .hit{transition:width .5s ease,font-size .5s ease}
+.intro.hi{transition:padding .5s ease,gap .5s ease}
+.intro.hi.min{padding:8px 0 2px;gap:4px}.intro.hi.min svg.brain{width:40px}.intro.hi.min .hit{font-size:18px}
+.m.next{background:none;padding:2px 0}
+.nextbtn{font:500 14px/1 var(--font-body);color:var(--green-700);background:var(--mint-50);border:1.5px solid var(--green-300);border-radius:9999px;padding:9px 14px;cursor:pointer}
+.nextbtn:hover{background:var(--mint)}
+.m.gcard{align-self:stretch;max-width:100%;background:var(--canvas);border:1px solid var(--rule);border-radius:16px;padding:10px 8px 4px}
+.gh{display:flex;justify-content:space-between;align-items:center;padding:2px 6px 6px;font:600 11px/1 var(--font-mono);letter-spacing:.8px;text-transform:uppercase;color:var(--green-700)}
+.gh .gc{color:var(--ink-mute);font-weight:400}
+.gcard svg{width:100%;height:auto;display:block}
+.gl{stroke:#c9ced3;stroke-width:1.2;stroke-dasharray:200;stroke-dashoffset:200}
+.gn{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.3)}
+.gcard.show .gl{animation:gdraw .7s ease-out forwards;animation-delay:var(--d)}
+.gcard.show .gn{animation:gpop .45s cubic-bezier(.3,1.4,.5,1) forwards;animation-delay:var(--d)}
+.c0{fill:var(--green-500)}.c1{fill:var(--green-700)}.c2{fill:#8a9097}
+.gt{font:400 12px/1 var(--font-body);fill:var(--ink-secondary);text-anchor:middle}.gt.b{font-weight:600;fill:var(--ink)}
+@keyframes gdraw{to{stroke-dashoffset:0}}
+@keyframes gpop{to{opacity:1;transform:none}}
 .hit{font:700 34px/1.1 var(--font-display);color:var(--ink);letter-spacing:-1px;text-align:center}
 .hit span{color:var(--green-500)}
 .his{font:400 17px/1.4 var(--font-body);color:var(--ink-secondary);min-height:24px;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 24px}
@@ -144,7 +175,7 @@ p{margin:0}
 @keyframes br{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
 
 /* scene picker */
-.picker{display:flex;gap:6px;flex-wrap:nowrap;justify-content:center}
+.picker{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:520px;margin-left:auto;margin-right:auto}
 .picker button{font:500 12px/1 var(--font-body);color:var(--ink);background:#fff;border:1.5px solid var(--line-strong);border-radius:9999px;padding:8px 11px;white-space:nowrap;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
 .picker button:hover{border-color:var(--green-500)}
 .picker button[aria-pressed="true"]{background:var(--green-700);border-color:var(--green-700);color:#fff}
@@ -188,6 +219,10 @@ p{margin:0}
 .foot .mail{color:var(--ink);user-select:all}
 .foot .copy{white-space:nowrap}
 
+/* big screens: scale whole page up so it does not look tiny */
+@media (min-width:1500px){body{zoom:1.2}.hero{min-height:calc(100vh/1.2 - 90px)}}
+@media (min-width:1800px){body{zoom:1.3}.hero{min-height:calc(100vh/1.3 - 90px)}}
+@media (min-width:2300px){body{zoom:1.5}.hero{min-height:calc(100vh/1.5 - 90px)}}
 @media (prefers-reduced-motion:reduce){.btn,.scene,.chip,.hub{transition:none}.brain .o,.src svg.links path{animation:none}}
 </style>
 
@@ -195,7 +230,6 @@ p{margin:0}
   <nav class="nav">
     <a class="brand" href="#top" aria-label="KOBO"><span class="wm" aria-hidden="true">K</span><svg class="brain" data-s="idle" viewBox="40 16 320 290"></svg><span class="wm" aria-hidden="true">B</span><span class="wm" aria-hidden="true">O</span></a>
     <div class="links">
-      <a href="#impressum">Impressum</a>
     </div>
   </nav>
 </header>
@@ -226,7 +260,29 @@ p{margin:0}
           </div>
 
           <div class="scene" data-id="hi">
-            <div class="intro hi"><svg class="brain" id="hiBrain" data-s="idle" viewBox="40 16 320 290"></svg><div class="hit">Hi, I’m <span>KOBO</span>.</div><div class="his"><span id="typed"></span><i class="caret"></i></div></div>
+            <div class="intro hi"><svg class="brain" id="hiBrain" data-s="idle" viewBox="40 16 320 290"></svg><div class="hit">Hi, I’m <span>KOBO</span>.</div></div>
+            <div class="thread hthread" id="sthread">
+              <div class="m b" data-at="1">Let’s set up your brain.</div>
+              <div class="m b" data-at="1">Is this for an existing company or a new one?</div>
+              <div class="opts wait" data-at="1"><button type="button" class="opt" data-pick="exist">Existing company</button><button type="button" class="opt" data-pick="new">New company</button></div>
+              <div class="ex" data-ex="exist">
+                <div class="m b" data-at="1">What does your company do, and what’s your role?</div>
+                <div class="m u" data-at="1">Seed fund in Berlin, 14 portfolio companies. I’m a partner.</div>
+                <div class="m b" data-at="1">What are you deciding this week?</div>
+                <div class="m u" data-at="1">Whether to lead the Series A of Lumen.</div>
+                <div class="m b" data-at="1">Your brain is ready on your private KOBO space.</div>
+                <div class="m gcard" data-at="1"><div class="gh"><span>Your brain</span><span class="gc">1 file</span></div><svg viewBox="0 0 300 236" aria-hidden="true"><line class="gl" x1="150" y1="122" x2="74" y2="48" style="--d:0.35s"/><line class="gl" x1="150" y1="122" x2="228" y2="46" style="--d:0.60s"/><line class="gl" x1="150" y1="122" x2="244" y2="140" style="--d:0.85s"/><line class="gl" x1="150" y1="122" x2="204" y2="206" style="--d:1.10s"/><line class="gl" x1="150" y1="122" x2="92" y2="206" style="--d:1.35s"/><line class="gl" x1="150" y1="122" x2="58" y2="132" style="--d:1.60s"/><line class="gl" x1="244" y1="140" x2="204" y2="206" style="--d:1.85s"/><line class="gl" x1="74" y1="48" x2="228" y2="46" style="--d:2.10s"/><line class="gl" x1="58" y1="132" x2="92" y2="206" style="--d:2.35s"/><g class="gn" style="--d:0s"><circle cx="150" cy="122" r="16" class="c0"/><text x="150" y="156" class="gt b">Your company</text></g><g class="gn" style="--d:0.50s"><circle cx="74" cy="48" r="9" class="c1"/><text x="74" y="71" class="gt">Team</text></g><g class="gn" style="--d:0.75s"><circle cx="228" cy="46" r="9" class="c1"/><text x="228" y="69" class="gt">Portfolio</text></g><g class="gn" style="--d:1.00s"><circle cx="244" cy="140" r="9" class="c1"/><text x="244" y="163" class="gt">Lumen Series A</text></g><g class="gn" style="--d:1.25s"><circle cx="204" cy="206" r="9" class="c1"/><text x="204" y="229" class="gt">Decisions</text></g><g class="gn" style="--d:1.50s"><circle cx="92" cy="206" r="7" class="c2"/><text x="92" y="229" class="gt">Contacts</text></g><g class="gn" style="--d:1.75s"><circle cx="58" cy="132" r="7" class="c2"/><text x="58" y="155" class="gt">Documents</text></g></svg></div>
+              </div>
+              <div class="ex" data-ex="new">
+                <div class="m b" data-at="1">What are you building, and who is founding with you?</div>
+                <div class="m u" data-at="1">Logistics software. With my co-founder Ben.</div>
+                <div class="m b" data-at="1">What is the next step?</div>
+                <div class="m u" data-at="1">Choosing the legal form.</div>
+                <div class="m b" data-at="1">Your brain is ready. Your first steps are in the checklist.</div>
+                <div class="m gcard" data-at="1"><div class="gh"><span>Your new company</span><span class="gc">1 file</span></div><svg viewBox="0 0 300 236" aria-hidden="true"><line class="gl" x1="150" y1="122" x2="74" y2="48" style="--d:0.35s"/><line class="gl" x1="150" y1="122" x2="228" y2="46" style="--d:0.60s"/><line class="gl" x1="150" y1="122" x2="244" y2="140" style="--d:0.85s"/><line class="gl" x1="150" y1="122" x2="204" y2="206" style="--d:1.10s"/><line class="gl" x1="150" y1="122" x2="92" y2="206" style="--d:1.35s"/><line class="gl" x1="150" y1="122" x2="58" y2="132" style="--d:1.60s"/><line class="gl" x1="244" y1="140" x2="204" y2="206" style="--d:1.85s"/><line class="gl" x1="74" y1="48" x2="228" y2="46" style="--d:2.10s"/><line class="gl" x1="58" y1="132" x2="92" y2="206" style="--d:2.35s"/><g class="gn" style="--d:0s"><circle cx="150" cy="122" r="16" class="c0"/><text x="150" y="156" class="gt b">New company</text></g><g class="gn" style="--d:0.50s"><circle cx="74" cy="48" r="9" class="c1"/><text x="74" y="71" class="gt">Founders</text></g><g class="gn" style="--d:0.75s"><circle cx="228" cy="46" r="9" class="c1"/><text x="228" y="69" class="gt">Legal form</text></g><g class="gn" style="--d:1.00s"><circle cx="244" cy="140" r="9" class="c1"/><text x="244" y="163" class="gt">Checklist</text></g><g class="gn" style="--d:1.25s"><circle cx="204" cy="206" r="9" class="c1"/><text x="204" y="229" class="gt">Bank account</text></g><g class="gn" style="--d:1.50s"><circle cx="92" cy="206" r="7" class="c2"/><text x="92" y="229" class="gt">Notary</text></g><g class="gn" style="--d:1.75s"><circle cx="58" cy="132" r="7" class="c2"/><text x="58" y="155" class="gt">Business plan</text></g></svg></div>
+              </div>
+              <div class="typing" id="stt"><span></span><span></span><span></span></div>
+            </div>
           </div>
 
           <div class="scene" data-id="src">
@@ -387,6 +443,58 @@ p{margin:0}
       }
     })();
   }
+  var sT=[];
+  function seq(th,ty,bId,items,t,after){
+    var d=reduce?50:850;
+    items.forEach(function(m){
+      if(m.classList.contains('b')){
+        sT.push(setTimeout(function(){setBrain(bId,'think');th.appendChild(ty);ty.classList.add('show')},t));
+        t+=d;
+        sT.push(setTimeout(function(){ty.classList.remove('show');m.classList.add('show');th.scrollTo({top:th.scrollHeight,behavior:'smooth'})},t));
+        t+=reduce?50:550;
+      }else if(m.classList.contains('gcard')){
+        t+=reduce?0:400;
+        sT.push(setTimeout(function(){m.classList.add('show');th.scrollTo({top:th.scrollHeight,behavior:'smooth'});
+          var gc=m.querySelector('.gc');gc.textContent='1 file';
+          var tot=m.querySelectorAll('.gn').length;for(var k=2;k<=tot;k++)(function(k){sT.push(setTimeout(function(){gc.textContent=k+' files'},reduce?0:450+(k-2)*220))})(k);
+          setBrain(bId,'done')},t));
+        t+=reduce?50:2200;
+      }else if(m.classList.contains('opts')){
+        sT.push(setTimeout(function(){m.classList.add('show');setBrain(bId,'done')},t));
+        t+=reduce?50:700;
+      }else{
+        t+=reduce?0:500;
+        sT.push(setTimeout(function(){m.classList.add('show');setBrain(bId,'done');th.scrollTo({top:th.scrollHeight,behavior:'smooth'})},t));
+        t+=reduce?50:450;
+      }
+    });
+    if(after)sT.push(setTimeout(after,t));
+  }
+  function runSetup(){
+    sT.forEach(clearTimeout);sT=[];
+    var th=el('sthread'),ty=el('stt');
+    var all=[].slice.call(th.querySelectorAll('[data-at]'));
+    all.forEach(function(m){m.classList.remove('show','picked');if(m.classList.contains('opts')){m.classList.add('wait');[].slice.call(m.children).forEach(function(x){x.classList.remove('sel')})}});
+    th.scrollTop=0;ty.classList.remove('show');document.querySelector('.intro.hi').classList.remove('min');
+    setBrain('hiBrain','idle');
+    var top=all.filter(function(m){return !m.closest('.ex')});
+    seq(th,ty,'hiBrain',top,reduce?0:900);
+  }
+  function playEx(k){
+    sT.forEach(clearTimeout);sT=[];
+    var th=el('sthread'),ty=el('stt');
+    document.querySelector('.intro.hi').classList.add('min');
+    var items=[].slice.call(th.querySelectorAll('.ex[data-ex="'+k+'"] [data-at]'));
+    [].slice.call(th.querySelectorAll('.ex [data-at]')).forEach(function(m){m.classList.remove('show')});
+    seq(th,ty,'hiBrain',items,reduce?0:500);
+  }
+  /* interactive pick in Meet KOBO */
+  [].slice.call(document.querySelectorAll('[data-pick]')).forEach(function(b){b.addEventListener('click',function(){
+    var o=b.parentNode;o.classList.remove('wait');o.classList.add('picked');
+    [].slice.call(o.children).forEach(function(x){x.classList.toggle('sel',x===b)});
+    clearTimeout(timer);auto=false;playEx(b.dataset.pick);
+  })});
+  [].slice.call(document.querySelectorAll('[data-go2]')).forEach(function(b){b.addEventListener('click',function(){clearTimeout(timer);auto=false;show(b.dataset.go2)})});
   var typeT=[];
   function runHi(){
     typeT.forEach(clearTimeout);typeT=[];
@@ -413,10 +521,10 @@ p{margin:0}
     scenes[id].classList.add('on');
     document.querySelector('.screen').classList.toggle('dark',id==='call');
     if(id!=='call')clearInterval(tickT);
-    var pid=id;btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.go===pid?'true':'false')});
-    if(id==='chat')runChat();if(id==='hi')runHi();if(id==='src')runSrc();if(id==='call')runCall();
+    var pid=(id==='exist'||id==='new')?'hi':id;btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.go===pid?'true':'false')});
+    if(id==='chat')runChat();if(id==='hi')runSetup();if(id==='src')runSrc();if(id==='call')runCall();
   }
-  var DUR={intro:2600,hi:4600,src:5200,chat:9000,call:8500};
+  var DUR={intro:2600,hi:6000,src:5200,chat:9000,call:8500};
   function schedule(){clearTimeout(timer);if(!auto)return;timer=setTimeout(function(){var i=order.indexOf(cur);show(order[(i+1)%order.length]);schedule()},DUR[cur])}
   btns.forEach(function(b){b.addEventListener('click',function(){clearTimeout(timer);auto=false;show(b.dataset.go)})});
   auto=false;show('intro');
