@@ -395,6 +395,18 @@ body::before {
 
 </style>
   
+<style id="real-iphone">
+/* Clone: real iPhone frame (black body), like the first version. Only frame/body changed. */
+.phone{background:#0a0a0a !important;border:0 !important;
+  box-shadow:0 0 0 1.5px #2a2a2c, 0 0 0 3px #8e8e93, 0 0 0 4px #3a3a3c, 0 30px 60px -20px rgba(0,0,0,.45), 0 12px 24px -12px rgba(0,0,0,.35) !important}
+.phone::before{content:"" !important;position:absolute;inset:auto;left:-6px;top:150px;width:3px;height:64px;border:0 !important;border-radius:2px;background:#3a3a3c;box-shadow:0 84px 0 #3a3a3c}
+.phone::after{content:"";position:absolute;right:-6px;top:200px;width:3px;height:96px;border-radius:2px;background:#3a3a3c}
+.screen{box-shadow:none !important}
+.island{background:#0a0a0a !important;box-shadow:none !important}
+/* Let's organize: smaller brain, sits higher, so it does not cover the ChatGPT box */
+.hub{top:44% !important}
+.hub svg{width:84px !important;padding:10px !important}
+</style>
 </head>
 <body>
 <svg class="material-defs" aria-hidden="true" width="0" height="0" xmlns="http://www.w3.org/2000/svg"><defs>
